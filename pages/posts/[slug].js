@@ -39,6 +39,7 @@ export default function Post({ post, morePosts, preview }) {
                 date={post.date}
                 author={post.author}
               />
+              TEST
               <PostBody content={post.content} />
             </article>
             <SectionSeparator />
@@ -47,12 +48,12 @@ export default function Post({ post, morePosts, preview }) {
         )}
       </Container>
     </Layout>
-  )
+  );
 }
 
 export async function getStaticProps({ params, preview }) {
-  const data = await getPostAndMorePosts(params.slug, preview)
-  const content = await markdownToHtml(data?.post?.content || '')
+  const data = await getPostAndMorePosts(params.slug, preview);
+  const content = await markdownToHtml(data?.post?.content || "");
 
   return {
     props: {
@@ -63,13 +64,13 @@ export async function getStaticProps({ params, preview }) {
       },
       morePosts: data?.morePosts,
     },
-  }
+  };
 }
 
 export async function getStaticPaths() {
-  const allPosts = await getAllPostsWithSlug()
+  const allPosts = await getAllPostsWithSlug();
   return {
-    paths: allPosts?.map(post => `/posts/${post.slug}`) || [],
+    paths: allPosts?.map((post) => `/posts/${post.slug}`) || [],
     fallback: true,
-  }
+  };
 }
